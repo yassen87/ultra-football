@@ -18,7 +18,181 @@
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&family=Julius+Sans+One&display=swap" rel="stylesheet">
 
     <style>
-        /* نفس التنسيق السابق */
+        /* Basic Styling */
+        body {
+            font-family: 'Reem Kufi', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .header h1 {
+            font-family: 'Julius Sans One', sans-serif;
+            font-size: 48px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        /* Chat Box */
+        .chat-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-box i {
+            margin-left: 5px;
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 40px 10%;
+        }
+
+        .news-section h2 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .news-item {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .news-item:hover {
+            transform: scale(1.02);
+        }
+
+        .news-item h3 {
+            font-size: 24px;
+        }
+
+        .news-item img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .news-item video {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Admin Login */
+        .admin-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .admin-login input {
+            padding: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .admin-login button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .admin-login button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add News Form */
+        .add-news-form {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .add-news-form h3 {
+            margin-bottom: 20px;
+        }
+
+        .add-news-form input,
+        .add-news-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .add-news-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-news-form button:hover {
+            background-color: #218838;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .news-section {
+                padding: 40px 5%;
+            }
+
+            .news-item {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .header p {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body data-aos="fade-up">
