@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Ball</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&family=Julius+Sans+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Reem Kufi', sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Default to dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #000;
+                color: #fff;
+            }
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px;
+            background: linear-gradient(135deg, #f4a261, #ff6347);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 60px;
+            font-family: 'Julius Sans One', sans-serif;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .header p {
+            font-size: 28px;
+            margin-top: -10px;
+            font-style: italic;
+        }
+
+        .chat-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #008cba;
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+
+        .chat-box:hover {
+            background: #005f73;
+        }
+
+        .news-section {
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .news-item {
+            background: #f4f4f4;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .news-item:hover {
+            transform: scale(1.05);
+        }
+
+        .news-item img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .add-news-form input, .add-news-form textarea, .add-news-form button {
+            padding: 12px;
+            margin: 15px 0;
+            width: 80%;
+            border: 2px solid #000;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .add-news-form button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-news-form button:hover {
+            background-color: #ff4500;
+        }
+
+        /* Admin login form */
+        .admin-login input {
+            font-size: 16px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            font-family: 'Cursive', sans-serif;
+            font-size: 20px;
+            color: #f4a261;
+        }
+
+        /* Ensure responsiveness */
+        @media screen and (max-width: 600px) {
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .header p {
+                font-size: 18px;
+            }
+
+            .chat-box {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .news-item {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body data-aos="fade-up">
+    <div class="header" data-aos="fade-down">
+        <h1>𝖀𝖑𝖙𝖗𝖆 𝖋𝖔𝖔𝖙✨𝖇𝖆𝖑𝖑↻</h1>
+        <p>الاسم 😘😉</p>
+    </div>
+
+    <div class="chat-box" onclick="alert('Live Chat coming soon!')">
+        <i class="fas fa-comment-dots"></i> دردشة مباشرة
+    </div>
+
+    <div class="news-section">
+        <h2>الأخبار</h2>
+        <div class="news-item" id="news-container" data-aos="fade-up">
+            <h3>عنوان الخبر 1</h3>
+            <img src="https://via.placeholder.com/600x300" alt="News Image">
+            <p>تفاصيل الخبر...</p>
+        </div>
+    </div>
+
+    <div class="admin-login">
+        <input type="text" placeholder="اسم المستخدم" id="username">
+        <input type="password" placeholder="كلمة المرور" id="password">
+        <button onclick="login()">دخول المدير</button>
+    </div>
+
+    <div class="add-news-form" id="add-news-form" style="display:none;" data-aos="zoom-in">
+        <h3>إضافة خبر جديد</h3>
+        <input type="text" id="news-title" placeholder="عنوان الخبر">
+        <textarea id="news-content" placeholder="محتوى الخبر" rows="4"></textarea>
+        <input type="file" id="news-image" accept="image/*">
+        <input type="file" id="news-video" accept="video/*">
+        <input type="datetime-local" id="publish-time">
+        <button onclick="addNews()">أضف الخبر</button>
+    </div>
+
+    <div class="footer">
+        <p>Made by Yassen Mostafa - Webs</p>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // Initializing AOS animations
+        AOS.init();
+
+        // Simulating login
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'yaso' && password === 'yaso') {
+                alert('تم الدخول بنجاح!');
+                document.getElementById('add-news-form').style.display = 'block';
+            } else {
+                alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+            }
+        }
+
+        // Adding news
+        function addNews() {
+            const title = document.getElementById('news-title').value;
+            const content = document.getElementById('news-content').value;
+            const image = document.getElementById('news-image').files[0];
+            const video = document.getElementById('news-video').files[0];
+            const publishTime = document.getElementById('publish-time').value;
+
+            if (title && content && image && video && publishTime) {
+                const newsContainer = document.getElementById('news-container');
+                
+                // Create news item element
+                const newNewsItem = document.createElement('div');
+                newNewsItem.classList.add('news-item');
+                
+                const newsTitle = document.createElement('h3');
+                newsTitle.innerText = title;
+                
+                const newsContent = document.createElement('p');
+                newsContent.innerText = content;
+                
+                const newsImage = document.createElement('img');
+                newsImage.src = URL.createObjectURL(image);
+                
+                const newsVideo = document.createElement('video');
+                newsVideo.controls = true;
+                newsVideo.src = URL.createObjectURL(video);
+                
+                newNewsItem.appendChild(newsTitle);
+                newNewsItem.appendChild(newsImage);
+                newNewsItem.appendChild(newsVideo);
+                newNewsItem.appendChild(newsContent);
+
+                newsContainer.appendChild(newNewsItem);
+
+                alert('تم إضافة الخبر بنجاح!');
+            } else {
+                alert('يرجى ملء جميع الحقول!');
+            }
+        }
+    </script>
+</body>
+</html>
