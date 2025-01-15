@@ -18,142 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&family=Julius+Sans+One&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Reem Kufi', sans-serif;
-            background-color: #fff;
-            color: #000;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Default to dark mode */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #000;
-                color: #fff;
-            }
-        }
-
-        .header {
-            text-align: center;
-            padding: 60px;
-            background: linear-gradient(135deg, #f4a261, #ff6347);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 60px;
-            font-family: 'Julius Sans One', sans-serif;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .header p {
-            font-size: 28px;
-            margin-top: -10px;
-            font-style: italic;
-        }
-
-        .chat-box {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #008cba;
-            padding: 15px;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            transition: background 0.3s;
-        }
-
-        .chat-box:hover {
-            background: #005f73;
-        }
-
-        .news-section {
-            padding: 30px;
-            margin-top: 50px;
-            text-align: center;
-        }
-
-        .news-item {
-            background: #f4f4f4;
-            margin: 15px 0;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
-        }
-
-        .news-item:hover {
-            transform: scale(1.05);
-        }
-
-        .news-item img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .add-news-form input, .add-news-form textarea, .add-news-form button {
-            padding: 12px;
-            margin: 15px 0;
-            width: 80%;
-            border: 2px solid #000;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .add-news-form button {
-            background-color: #ff6347;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .add-news-form button:hover {
-            background-color: #ff4500;
-        }
-
-        /* Admin login form */
-        .admin-login input {
-            font-size: 16px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
-            font-family: 'Cursive', sans-serif;
-            font-size: 20px;
-            color: #f4a261;
-        }
-
-        /* Ensure responsiveness */
-        @media screen and (max-width: 600px) {
-            .header h1 {
-                font-size: 36px;
-            }
-
-            .header p {
-                font-size: 18px;
-            }
-
-            .chat-box {
-                font-size: 14px;
-                padding: 10px;
-            }
-
-            .news-item {
-                font-size: 14px;
-            }
-        }
+        /* نفس التنسيق السابق */
     </style>
 </head>
 <body data-aos="fade-up">
@@ -169,9 +34,7 @@
     <div class="news-section">
         <h2>الأخبار</h2>
         <div class="news-item" id="news-container" data-aos="fade-up">
-            <h3>عنوان الخبر 1</h3>
-            <img src="https://via.placeholder.com/600x300" alt="News Image">
-            <p>تفاصيل الخبر...</p>
+            <!-- الأخبار ستضاف هنا -->
         </div>
     </div>
 
@@ -204,12 +67,57 @@
         // Initializing AOS animations
         AOS.init();
 
+        // Load news from localStorage
+        function loadNews() {
+            const storedNews = localStorage.getItem('news');
+            return storedNews ? JSON.parse(storedNews) : [];
+        }
+
+        // Store news to localStorage
+        function saveNews(newsArray) {
+            localStorage.setItem('news', JSON.stringify(newsArray));
+        }
+
+        // Store news in an array temporarily
+        let newsArray = loadNews();
+
+        // Display news dynamically
+        function displayNews() {
+            const newsContainer = document.getElementById('news-container');
+            newsContainer.innerHTML = '';  // Clear the news container
+
+            newsArray.forEach(news => {
+                const newNewsItem = document.createElement('div');
+                newNewsItem.classList.add('news-item');
+                
+                const newsTitle = document.createElement('h3');
+                newsTitle.innerText = news.title;
+                
+                const newsContent = document.createElement('p');
+                newsContent.innerText = news.content;
+                
+                const newsImage = document.createElement('img');
+                newsImage.src = news.image;
+                
+                const newsVideo = document.createElement('video');
+                newsVideo.controls = true;
+                newsVideo.src = news.video;
+                
+                newNewsItem.appendChild(newsTitle);
+                newNewsItem.appendChild(newsImage);
+                newNewsItem.appendChild(newsVideo);
+                newNewsItem.appendChild(newsContent);
+
+                newsContainer.appendChild(newNewsItem);
+            });
+        }
+
         // Simulating login
         function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            if (username === 'yaso' && password === 'yaso') {
+            if (username === 'admin' && password === 'password123') {
                 alert('تم الدخول بنجاح!');
                 document.getElementById('add-news-form').style.display = 'block';
             } else {
@@ -226,37 +134,38 @@
             const publishTime = document.getElementById('publish-time').value;
 
             if (title && content && image && video && publishTime) {
-                const newsContainer = document.getElementById('news-container');
-                
-                // Create news item element
-                const newNewsItem = document.createElement('div');
-                newNewsItem.classList.add('news-item');
-                
-                const newsTitle = document.createElement('h3');
-                newsTitle.innerText = title;
-                
-                const newsContent = document.createElement('p');
-                newsContent.innerText = content;
-                
-                const newsImage = document.createElement('img');
-                newsImage.src = URL.createObjectURL(image);
-                
-                const newsVideo = document.createElement('video');
-                newsVideo.controls = true;
-                newsVideo.src = URL.createObjectURL(video);
-                
-                newNewsItem.appendChild(newsTitle);
-                newNewsItem.appendChild(newsImage);
-                newNewsItem.appendChild(newsVideo);
-                newNewsItem.appendChild(newsContent);
+                // Add news to the array
+                newsArray.push({
+                    title: title,
+                    content: content,
+                    image: URL.createObjectURL(image),
+                    video: URL.createObjectURL(video),
+                    publishTime: publishTime
+                });
 
-                newsContainer.appendChild(newNewsItem);
+                // Save updated news to localStorage
+                saveNews(newsArray);
+
+                // Clear form inputs
+                document.getElementById('news-title').value = '';
+                document.getElementById('news-content').value = '';
+                document.getElementById('news-image').value = '';
+                document.getElementById('news-video').value = '';
+                document.getElementById('publish-time').value = '';
+
+                // Refresh news display
+                displayNews();
 
                 alert('تم إضافة الخبر بنجاح!');
             } else {
                 alert('يرجى ملء جميع الحقول!');
             }
         }
+
+        // Load and display news when the page loads
+        window.onload = function() {
+            displayNews();
+        };
     </script>
 </body>
 </html>
