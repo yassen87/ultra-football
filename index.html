@@ -18,7 +18,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&family=Julius+Sans+One&display=swap" rel="stylesheet">
 
     <style>
-        /* Basic Styling */
         body {
             font-family: 'Reem Kufi', sans-serif;
             background-color: #f0f0f0;
@@ -27,7 +26,6 @@
             padding: 0;
         }
 
-        /* Header Section */
         .header {
             background-color: #333;
             color: white;
@@ -37,16 +35,15 @@
 
         .header h1 {
             font-family: 'Julius Sans One', sans-serif;
-            font-size: 48px;
+            font-size: 36px;
             letter-spacing: 2px;
         }
 
         .header p {
-            font-size: 20px;
+            font-size: 18px;
             margin-top: 10px;
         }
 
-        /* Chat Box */
         .chat-box {
             position: fixed;
             bottom: 20px;
@@ -63,7 +60,6 @@
             margin-left: 5px;
         }
 
-        /* News Section */
         .news-section {
             padding: 40px 10%;
         }
@@ -101,7 +97,6 @@
             margin-top: 10px;
         }
 
-        /* Admin Login */
         .admin-login {
             display: flex;
             justify-content: center;
@@ -129,7 +124,6 @@
             background-color: #0056b3;
         }
 
-        /* Add News Form */
         .add-news-form {
             margin-top: 30px;
             background-color: #fff;
@@ -165,7 +159,6 @@
             background-color: #218838;
         }
 
-        /* Footer */
         .footer {
             text-align: center;
             margin-top: 50px;
@@ -175,29 +168,60 @@
             font-size: 16px;
         }
 
-        /* Responsive Design */
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* تحسين التصميم للموبايل */
         @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
             .news-section {
-                padding: 40px 5%;
+                padding: 20px;
             }
 
             .news-item {
                 padding: 15px;
             }
 
-            .header h1 {
-                font-size: 36px;
+            .chat-box {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 14px;
             }
 
-            .header p {
-                font-size: 18px;
+            .admin-login input,
+            .admin-login button {
+                font-size: 14px;
+            }
+
+            .footer {
+                font-size: 14px;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body data-aos="fade-up">
     <div class="header" data-aos="fade-down">
-        <h1>𝖀𝖑𝖙𝖗𝖆 𝖋𝖔𝖔𝖙✨𝖇𝖆𝖑𝖑↻</h1>
+        <h1>𝖀𝖑𝖙𝖗𝖆 𝖋𝖔𝖘𝖙✨𝖇𝖆𝖑𝖑↻</h1>
         <p>الاسم 😘😉</p>
     </div>
 
@@ -232,61 +256,60 @@
         <p>Made by Yassen Mostafa - Webs</p>
     </div>
 
-    <!-- Bootstrap JS, Popper.js, and AOS JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
     <script>
-        // Initializing AOS animations
         AOS.init();
 
-        // Load news from localStorage
         function loadNews() {
             const storedNews = localStorage.getItem('news');
             return storedNews ? JSON.parse(storedNews) : [];
         }
 
-        // Store news to localStorage
         function saveNews(newsArray) {
             localStorage.setItem('news', JSON.stringify(newsArray));
         }
 
-        // Store news in an array temporarily
         let newsArray = loadNews();
 
-        // Display news dynamically
         function displayNews() {
             const newsContainer = document.getElementById('news-container');
             newsContainer.innerHTML = '';  // Clear the news container
 
-            newsArray.forEach(news => {
+            newsArray.forEach((news, index) => {
                 const newNewsItem = document.createElement('div');
                 newNewsItem.classList.add('news-item');
                 
                 const newsTitle = document.createElement('h3');
                 newsTitle.innerText = news.title;
-                
+
                 const newsContent = document.createElement('p');
                 newsContent.innerText = news.content;
-                
+
                 const newsImage = document.createElement('img');
                 newsImage.src = news.image;
-                
+
                 const newsVideo = document.createElement('video');
                 newsVideo.controls = true;
                 newsVideo.src = news.video;
-                
+
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-btn');
+                deleteButton.innerText = 'حذف الخبر';
+                deleteButton.onclick = () => deleteNews(index);
+
                 newNewsItem.appendChild(newsTitle);
                 newNewsItem.appendChild(newsImage);
                 newNewsItem.appendChild(newsVideo);
                 newNewsItem.appendChild(newsContent);
+                newNewsItem.appendChild(deleteButton);
 
                 newsContainer.appendChild(newNewsItem);
             });
         }
 
-        // Simulating login
         function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -299,7 +322,6 @@
             }
         }
 
-        // Adding news
         function addNews() {
             const title = document.getElementById('news-title').value;
             const content = document.getElementById('news-content').value;
@@ -307,36 +329,34 @@
             const video = document.getElementById('news-video').files[0];
             const publishTime = document.getElementById('publish-time').value;
 
-            if (title && content && image && video && publishTime) {
-                // Add news to the array
+            if (title || content || image || video || publishTime) {
                 newsArray.push({
-                    title: title,
-                    content: content,
-                    image: URL.createObjectURL(image),
-                    video: URL.createObjectURL(video),
-                    publishTime: publishTime
+                    title: title || 'عنوان غير محدد',
+                    content: content || 'محتوى غير محدد',
+                    image: image ? URL.createObjectURL(image) : '',
+                    video: video ? URL.createObjectURL(video) : '',
+                    publishTime: publishTime || new Date().toISOString()
                 });
 
-                // Save updated news to localStorage
                 saveNews(newsArray);
-
-                // Clear form inputs
+                displayNews();
+                alert('تم إضافة الخبر بنجاح!');
                 document.getElementById('news-title').value = '';
                 document.getElementById('news-content').value = '';
                 document.getElementById('news-image').value = '';
                 document.getElementById('news-video').value = '';
                 document.getElementById('publish-time').value = '';
-
-                // Refresh news display
-                displayNews();
-
-                alert('تم إضافة الخبر بنجاح!');
             } else {
-                alert('يرجى ملء جميع الحقول!');
+                alert('يرجى ملء أحد الحقول لإضافة الخبر!');
             }
         }
 
-        // Load and display news when the page loads
+        function deleteNews(index) {
+            newsArray.splice(index, 1);
+            saveNews(newsArray);
+            displayNews();
+        }
+
         window.onload = function() {
             displayNews();
         };
